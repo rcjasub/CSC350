@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jocsan">
+    <meta name="description" content="A brief description of my web page">
+    <title>My Web Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div>
+        <form action="/submit" method="post">
+            <label for="Fname">Name:</label>
+            <input type="text" id="Fname" name="Fname" required>
+            <br>
+            <label for="Lname">Last Name:</label>
+            <input type="text" id="Lname" name="Lname" required>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <br>
+
+    <div>
+        <form>
+            <input type="radio" , id="freshman" , name="status">
+            <label for="freshman">freshman</label><br>
+            <input type="radio" , id="sophomore" , name="status">
+            <label for="sophomore">sophomore</label><br>
+            <input type="radio" , id="junior" , name="status">
+            <label for="junior">junior</label><br>
+            <input type="radio" , id="senior" , name="status">
+            <label for="senior">senior</label><br>
+            <input type="submit" value="submit">
+        </form>
+    </div>
+
+    <div>
+        <h1> Select Elements </h1>
+        <form action="/action_page.php>">
+            <label for="status">
+                What is your status
+            </label>
+            <select id="status" name="status" size="4" multiple>
+                <option value="freshman">freshman</option>
+                <option value="sophomore">sophomore</option>
+                <option value="junior">junior</option>
+                <option value="senior">senior</option>
+            </select>
+            <input type="submit" value="submit">
+        </form>
+    </div>
+
+    <br>
+
+    <div>
+        <p>Adding a link to send emails</p>
+        <a href="mailto:jasub270@gmail.com"> email to jasub </a>
+    </div>
+
+    <br>
+
+    <div>
+        <marquee align="middle" behavior="scroll" scrolldelay="5" scrollamount="15"> HELLO, WELCOME</marquee>
+    </div>
+
+
+</body>
+
+</html>
