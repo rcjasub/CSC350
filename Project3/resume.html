@@ -2,8 +2,37 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Resume</title>
+    <title>My Web Page</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="images/bmcc-logo-8.webp" />
+
+    <script>
+      document.addEventListener("mousemove", (e) => {
+        const spark = document.createElement("div");
+        spark.className = "spark";
+        spark.style.left = e.pageX + "px";
+        spark.style.top = e.pageY + "px";
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 500);
+      });
+    </script>
+    <style>
+      .spark {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: rgb(201, 24, 39);
+        border-radius: 50%;
+        pointer-events: none;
+        animation: fade 0.5s forwards;
+      }
+      @keyframes fade {
+        to {
+          opacity: 0;
+          transform: scale(2);
+        }
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar">

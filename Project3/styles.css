@@ -24,6 +24,7 @@ body {
   align-items: center;
   gap: 20px;
   z-index: 1000;
+  font-style: oblique;
 
   /* "Glass" effect */
   background: linear-gradient(
