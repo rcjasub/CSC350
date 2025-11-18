@@ -1,0 +1,345 @@
+/* 
+  Author: Jocsan Rodriguez
+  Date: November 16 2025
+  Class: Web Programming
+*/
+
+/* Media stuff are just for testing that Im still working with (I'm aware this was not cover in class) */
+
+/* Genre Section */
+.genre-section {
+  margin-top: 60px;
+  padding: 0 1rem;
+}
+
+.genre-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.genre-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.genre-carousel-wrapper {
+  overflow: visible; /* Change from hidden */
+  padding: 0 1rem;
+}
+
+.nav-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #2a2a2a;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  background: #3a3a3a;
+}
+
+.genre-carousel-wrapper {
+  overflow: hidden;
+  padding: 0 1rem;
+}
+
+.genre-carousel {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.5s ease;
+}
+
+.genre-card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.genre-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.game-image {
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+
+.game-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.genre-card:hover .game-image img {
+  transform: scale(1.1);
+}
+
+.genre-name {
+  padding: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #c9d1d9;
+  word-wrap: break-word;
+}
+
+/* Responsive - Large Screens (1400px+) */
+@media (min-width: 1400px) {
+  .genre-card {
+    flex: 0 0 calc(25% - 18px);
+  }
+}
+
+/* Responsive - Medium-Large Screens (1200px - 1399px) */
+@media (max-width: 1399px) and (min-width: 992px) {
+  .genre-card {
+    flex: 0 0 calc(33.333% - 16px);
+  }
+
+  .genre-header h2 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Responsive - Tablets (768px - 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+  .genre-card {
+    flex: 0 0 calc(50% - 12px);
+  }
+
+  .genre-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .genre-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-buttons {
+    align-self: flex-start;
+  }
+
+  .nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
+/* Responsive - Small Tablets/Large Phones (576px - 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
+  .genre-card {
+    flex: 0 0 calc(50% - 12px);
+  }
+
+  .genre-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .genre-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .genre-name {
+    padding: 15px;
+    font-size: 1rem;
+  }
+
+  .nav-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+}
+
+/* Responsive - Mobile (< 576px) */
+@media (max-width: 575px) {
+  .genre-card {
+    flex: 0 0 calc(100% - 0px);
+    margin-bottom: 1rem;
+  }
+
+  .genre-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .genre-header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+  }
+
+  .nav-buttons {
+    align-self: flex-start;
+    gap: 8px;
+  }
+
+  .nav-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .genre-section {
+    margin-top: 40px;
+  }
+
+  .genre-name {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Shopping Card */
+.shopingCard {
+  background-color: #121212;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: all 0.3s ease;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); */
+}
+
+/* .shopingCard:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4px);
+} */
+
+/* Image */
+.shopingCard img {
+  width: 100%; /* fill card width */
+  height: auto;
+  aspect-ratio: 3/4;
+  object-fit: cover; /* crop image nicely */
+  border-radius: 4px; /* optional rounded corners */
+  margin-bottom: 0.75rem; /* spacing below image */
+}
+
+/* Card body (text + button) */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1; /* fill remaining space */
+  padding: 0;
+}
+
+/* Title and description */
+.card-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #c9d1d9;
+  word-wrap: break-word;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #c9d1d9;
+  margin-bottom: 1rem;
+  word-wrap: break-word;
+}
+
+/* Price and button container */
+.d-flex.justify-content-between {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Price */
+.price {
+  font-weight: bold;
+  color: #c9d1d9;
+}
+
+/* Button unstyled but readable */
+.no-style {
+  all: unset;
+  cursor: pointer;
+  font: inherit;
+  color: #c9d1d9;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid #3a3a3a;
+}
+
+.no-style:hover {
+  background-color: #1f1f1f;
+  border-color: #5a5a5a;
+}
+
+.no-style:active {
+  transform: scale(0.98);
+}
+
+/* Responsive - Tablets and below (991px) */
+@media (max-width: 991px) {
+  .shopingCard {
+    padding: 0.75rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-text {
+    font-size: 0.85rem;
+  }
+}
+
+/* Responsive - Mobile (575px and below) */
+@media (max-width: 575px) {
+  .shopingCard {
+    padding: 0.5rem;
+  }
+
+  .shopingCard img {
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .card-text {
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .price {
+    font-size: 0.95rem;
+  }
+
+  .no-style {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
