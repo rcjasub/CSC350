@@ -27,123 +27,28 @@
     </div>
 
     <div class="H1SALE">
-      <h2>ROLE PLAYING GAMES</h2>
+      <h2>ROLE PLAYING GAMES GAMES</h2>
     </div>
+
+    <button
+      class="floating-cart-btn"
+      aria-label="Open cart"
+      onclick="location.href='cart.php'"
+    >
+      <!-- Material Icons - shopping_cart -->
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path
+          d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
+        />
+      </svg>
+      <span class="cart-badge" id="cart-btn">0</span>
+    </button>
 
     <!-- Main content -->
     <main class="main-content">
       <div class="container mt-4">
-        <div class="row g-4">
-          <?php
-          // Define role-playing games array
-          $products = [
-            [
-              'image' => 'images/FF7.jpeg',
-              'alt' => 'Final Fantasy 7 cover',
-              'title' => 'Final Fantasy 7',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/pr3.jpeg',
-              'alt' => 'Persona 3',
-              'title' => 'Persona 3',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/metaphor.jpeg',
-              'alt' => 'metaphor refantazio',
-              'title' => 'Metaphor Refantazio',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/ds3.jpeg',
-              'alt' => 'Dark Souls 3',
-              'title' => 'Dark Souls 3',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/ff13.jpeg',
-              'alt' => 'Final Fantasy 13',
-              'title' => 'Final Fantasy 13',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/bloodborne.jpeg',
-              'alt' => 'bloodborne',
-              'title' => 'Bloodborne',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/cyberpunk2077.jpeg',
-              'alt' => 'cyberpunk2077',
-              'title' => 'Cyberpunk2077',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/expidition33.jpeg',
-              'alt' => 'expidition33',
-              'title' => 'Expedition 33',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/falloutNewVegas.jpeg',
-              'alt' => 'falloutNewVegas',
-              'title' => 'Fallout New Vegas',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/EldenRing.jpeg',
-              'alt' => 'Elden Ring',
-              'title' => 'Elden Ring',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/p5.jpeg',
-              'alt' => 'Persona 5',
-              'title' => 'Persona 5',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/disco.jpeg',
-              'alt' => 'Disco Elysium',
-              'title' => 'Disco Elysium',
-              'description' => 'A genre that blends fear, resource management, and tense atmosphere. Players must survive dangerous environments while facing limited supplies and frightening enemies.',
-              'price' => '$49.99'
-            ]
-          ];
-
-          // Loop through products and generate HTML
-          foreach ($products as $product) {
-            echo '
-            <div class="col-md-3 col-sm-6">
-              <div class="shopingCard">
-                <img src="' . $product['image'] . '" alt="' . $product['alt'] . '" />
-
-                <div class="card-body d-flex flex-column justify-content-between">
-                  <div>
-                    <h5 class="card-title">' . $product['title'] . '</h5>
-                    <p class="card-text">' . $product['description'] . '</p>
-                  </div>
-                  <div class="d-flex justify-content-start align-items-center mt-2">
-                    <p class="price mb-0 me-3">' . $product['price'] . '</p>
-                    <button class="no-style">Add to Cart</button>
-                  </div>
-                </div>
-              </div>
-            </div>';
-          }
-          ?>
+        <div class="row g-4" id="product-container">
+          <!-- Product Card -->
         </div>
       </div>
     </main>
@@ -165,5 +70,7 @@
         </li>
       </ul>
     </nav>
+    <script src="js/cart.js"></script>
+    <script src="js/product3.js"></script>
   </body>
 </html>

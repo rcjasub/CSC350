@@ -30,120 +30,25 @@
       <h2>SURVIVAL HORROR GAMES</h2>
     </div>
 
+    <button
+      class="floating-cart-btn"
+      aria-label="Open cart"
+      onclick="location.href='cart.php'"
+    >
+      <!-- Material Icons - shopping_cart -->
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path
+          d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
+        />
+      </svg>
+      <span class="cart-badge" id="cart-btn">0</span>
+    </button>
+
     <!-- Main content -->
     <main class="main-content">
       <div class="container mt-4">
-        <div class="row g-4">
-          <?php
-          // Define survival horror games array
-          $products = [
-            [
-              'image' => 'images/re4.jpeg',
-              'alt' => 'Resident Evil 4 cover',
-              'title' => 'Resident Evil 4',
-              'description' => 'Action-packed RPG with deep storytelling and stylish combat.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/sh2.jpeg',
-              'alt' => 'Silent Hill 2',
-              'title' => 'Silent Hill 2',
-              'description' => 'Games where players take on the role of a character and develop their abilities over time. They usually feature story-driven quests, leveling systems, and character customization.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/deadSpace2.jpeg',
-              'alt' => 'Dead Space 2',
-              'title' => 'Dead Space 2',
-              'description' => 'Games where players take on the role of a character and develop their abilities over time. They usually feature story-driven quests, leveling systems, and character customization.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/ff3.jpeg',
-              'alt' => 'Fatal Frame 3',
-              'title' => 'Fatal Frame 3',
-              'description' => 'Games where players take on the role of a character and develop their abilities over time. They usually feature story-driven quests, leveling systems, and character customization.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/alien.jpeg',
-              'alt' => 'Alien Isolation',
-              'title' => 'Alien Isolation',
-              'description' => 'Games where players take on the role of a character and develop their abilities over time. They usually feature story-driven quests, leveling systems, and character customization.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/evw.jpeg',
-              'alt' => 'The Evil Within',
-              'title' => 'The Evil Within',
-              'description' => 'Games where players take on the role of a character and develop their abilities over time. They usually feature story-driven quests, leveling systems, and character customization.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/AlanWake2.jpeg',
-              'alt' => 'Alan Wake 2',
-              'title' => 'Alan Wake 2',
-              'description' => 'Games where players take on the role of a character and develop their abilities over time. They usually feature story-driven quests, leveling systems, and character customization.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/chronos.jpeg',
-              'alt' => 'Chronos',
-              'title' => 'Chronos',
-              'description' => 'Games where players take on the role of a character and develop their abilities over time. They usually feature story-driven quests, leveling systems, and character customization.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/outLast.jpeg',
-              'alt' => 'OUTLAST',
-              'title' => 'OUTLAST',
-              'description' => 'Games where players take on the role of a character and develop their abilities over time. They usually feature story-driven quests, leveling systems, and character customization.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/re7.jpeg',
-              'alt' => 'Resident Evil 7',
-              'title' => 'Resident Evil 7',
-              'description' => 'Games where players take on the role of a character and develop their abilities over time. They usually feature story-driven quests, leveling systems, and character customization.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/UntilDawn.jpeg',
-              'alt' => 'Until Dawn',
-              'title' => 'Until Dawn',
-              'description' => 'Games where players take on the role of a character and develop their abilities over time. They usually feature story-driven quests, leveling systems, and character customization.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/shf.jpeg',
-              'alt' => 'Silent Hill F',
-              'title' => 'Silent Hill F',
-              'description' => 'Games where players take on the role of a character and develop their abilities over time. They usually feature story-driven quests, leveling systems, and character customization.',
-              'price' => '$49.99'
-            ]
-          ];
-
-          // Loop through products and generate HTML
-          foreach ($products as $product) {
-            echo '
-            <div class="col-md-3 col-sm-6">
-              <div class="shopingCard">
-                <img src="' . $product['image'] . '" alt="' . $product['alt'] . '" />
-
-                <div class="card-body d-flex flex-column justify-content-between">
-                  <div>
-                    <h5 class="card-title">' . $product['title'] . '</h5>
-                    <p class="card-text">' . $product['description'] . '</p>
-                  </div>
-                  <div class="d-flex justify-content-start align-items-center mt-2">
-                    <p class="price mb-0 me-3">' . $product['price'] . '</p>
-                    <button class="no-style">Add to Cart</button>
-                  </div>
-                </div>
-              </div>
-            </div>';
-          }
-          ?>
+        <div class="row g-4" id="product-container">
+          <!-- Product Card -->
         </div>
       </div>
     </main>
@@ -165,5 +70,7 @@
         </li>
       </ul>
     </nav>
+    <script src="js/cart.js"></script>
+    <script src="js/product2.js"></script>
   </body>
 </html>

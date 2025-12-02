@@ -30,120 +30,25 @@
       <h2>FIGHTING GAMES</h2>
     </div>
 
+    <button
+      class="floating-cart-btn"
+      aria-label="Open cart"
+      onclick="location.href='cart.php'"
+    >
+      <!-- Material Icons - shopping_cart -->
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path
+          d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
+        />
+      </svg>
+      <span class="cart-badge" id="cart-btn">0</span>
+    </button>
+
     <!-- Main content -->
     <main class="main-content">
       <div class="container mt-4">
-        <div class="row g-4">
-          <?php
-          // Define fighting games array
-          $products = [
-            [
-              'image' => 'images/t8.jpeg',
-              'alt' => 'Tekken 8',
-              'title' => 'Tekken 8',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/sf6.jpeg',
-              'alt' => 'Street Fighter 6',
-              'title' => 'Street Fighter 6',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/mkx.jpeg',
-              'alt' => 'Mortal Kombat x',
-              'title' => 'Mortal Kombat x',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/super.jpeg',
-              'alt' => 'Super Smash Bros Ultimate',
-              'title' => 'Super Smash Bros Ultimate',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/dbzf.jpeg',
-              'alt' => 'DragonBall Fighter Z',
-              'title' => 'DragonBall Fighter Z',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/vf.jpeg',
-              'alt' => 'Virtual Fighter 5',
-              'title' => 'Virtual Fighter 5',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/killerIn.jpeg',
-              'alt' => 'killer Instinct',
-              'title' => 'Killer Instinct',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/mvc.jpeg',
-              'alt' => 'Marvel vs Capcom',
-              'title' => 'Marvel vs Capcom',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/guilty-gear-strive.jpeg',
-              'alt' => 'guilty-gear-strive',
-              'title' => 'Guilty Gear Strive',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/KingOF.jpeg',
-              'alt' => 'King OF Fighter',
-              'title' => 'King OF Fighter',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/sc6.jpeg',
-              'alt' => 'Soul Caliver VI',
-              'title' => 'Soul Caliver VI',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ],
-            [
-              'image' => 'images/DOR.jepg.webp',
-              'alt' => 'Dead OR Alive 6',
-              'title' => 'Dead OR Alive 6',
-              'description' => 'Competitive games where players battle opponents using combos, special moves, and strategic timing. Usually involves one-on-one combat in fast, skill-based matches.',
-              'price' => '$49.99'
-            ]
-          ];
-
-          // Loop through products and generate HTML
-          foreach ($products as $product) {
-            echo '
-            <div class="col-md-3 col-sm-6">
-              <div class="shopingCard">
-                <img src="' . $product['image'] . '" alt="' . $product['alt'] . '" />
-
-                <div class="card-body d-flex flex-column justify-content-between">
-                  <div>
-                    <h5 class="card-title">' . $product['title'] . '</h5>
-                    <p class="card-text">' . $product['description'] . '</p>
-                  </div>
-                  <div class="d-flex justify-content-start align-items-center mt-2">
-                    <p class="price mb-0 me-3">' . $product['price'] . '</p>
-                    <button class="no-style">Add to Cart</button>
-                  </div>
-                </div>
-              </div>
-            </div>';
-          }
-          ?>
+        <div class="row g-4" id="product-container">
+          <!-- Product Card -->
         </div>
       </div>
     </main>
@@ -165,5 +70,7 @@
         </li>
       </ul>
     </nav>
+    <script src="js/cart.js"></script>
+    <script src="js/product4.js"></script>
   </body>
 </html>

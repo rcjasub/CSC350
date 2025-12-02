@@ -31,120 +31,25 @@
       <h2>ACTION GAMES</h2>
     </div>
 
+    <button
+      class="floating-cart-btn"
+      aria-label="Open cart"
+      onclick="location.href='cart.php'"
+    >
+      <!-- Material Icons - shopping_cart -->
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path
+          d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
+        />
+      </svg>
+      <span class="cart-badge" id="cart-btn">0</span>
+    </button>
+
     <!-- Main content -->
     <main class="main-content">
       <div class="container mt-4">
-        <div class="row g-4">
-          <?php
-          // Define products array
-          $products = [
-            [
-              'image' => 'images/Nier.jpeg',
-              'alt' => 'Nier Automata cover',
-              'title' => 'Nier Automata',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ],
-            [
-              'image' => 'images/ninjaG4.jpeg',
-              'alt' => 'Ninja Gaiden 4',
-              'title' => 'Ninja Gaiden 4',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ],
-            [
-              'image' => 'images/bf1.jpeg',
-              'alt' => 'BattleField 1',
-              'title' => 'BattleField 1',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ],
-            [
-              'image' => 'images/dmc3.jpeg',
-              'alt' => 'Devil May Cry 3',
-              'title' => 'Devil May Cry 3',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ],
-            [
-              'image' => 'images/bay.jpeg',
-              'alt' => 'Bayoneta 1',
-              'title' => 'Bayoneta 1',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ],
-            [
-              'image' => 'images/mg3R.jpeg',
-              'alt' => 'Metal Gear Rising',
-              'title' => 'Metal Gear Rising',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ],
-            [
-              'image' => 'images/gow.jpeg',
-              'alt' => 'God of war',
-              'title' => 'God of war',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ],
-            [
-              'image' => 'images/hades.jpeg',
-              'alt' => 'Hades',
-              'title' => 'Hades',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ],
-            [
-              'image' => 'images/batA.jpeg',
-              'alt' => 'Batman Arkham Asylum',
-              'title' => 'Batman Arkham Asylum',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ],
-            [
-              'image' => 'images/DoomE.jpeg',
-              'alt' => 'Doom Eternal',
-              'title' => 'Doom Eternal',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ],
-            [
-              'image' => 'images/ff16.jpeg',
-              'alt' => 'Final Fantasy 16',
-              'title' => 'Final Fantasy 16',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ],
-            [
-              'image' => 'images/seki.jpeg',
-              'alt' => 'Sekiro',
-              'title' => 'Sekiro shadow die twice',
-              'description' => 'Fast-paced games focused on quick reflexes, timing, and hand–eye coordination. Players often face real-time challenges like combat, platforming, or shooting.',
-              'price' => '$34.30'
-            ]
-          ];
-
-          // Loop through products and generate HTML
-          foreach ($products as $product) {
-            echo '
-            <div class="col-md-3 col-sm-6">
-              <div class="shopingCard">
-                <img src="' . $product['image'] . '" alt="' . $product['alt'] . '" />
-
-                <div class="card-body d-flex flex-column justify-content-between">
-                  <div>
-                    <h5 class="card-title">' . $product['title'] . '</h5>
-                    <p class="card-text">' . $product['description'] . '</p>
-                  </div>
-                  <div class="d-flex justify-content-start align-items-center mt-2">
-                    <p class="price mb-0 me-3">' . $product['price'] . '</p>
-                    <button class="no-style">Add to Cart</button>
-                  </div>
-                </div>
-              </div>
-            </div>';
-          }
-          ?>
+        <div class="row g-4" id="product-container">
+          <!-- Product cards will be inserted here dynamically -->
         </div>
       </div>
     </main>
@@ -166,5 +71,8 @@
         </li>
       </ul>
     </nav>
+
+    <script src="js/cart.js"></script>
+    <script src="js/product1.js"></script>
   </body>
 </html>

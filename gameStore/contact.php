@@ -16,12 +16,19 @@
     <link rel="stylesheet" href="css/contact.css" />
     <link rel="stylesheet" href="css/global.css" />
   </head>
+
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
-      <a href="index.php" class="sidebar-link active"><span>Home</span></a>
-      <a href="about.php" class="sidebar-link"><span>About</span></a>
-      <a href="contact.php" class="sidebar-link"><span>Contact</span></a>
+      <a href="index.php" class="sidebar-link active">
+        <span> Home </span>
+      </a>
+      <a href="about.php" class="sidebar-link active">
+        <span> About </span>
+      </a>
+      <a href="contact.php" class="sidebar-link active">
+        <span> Contact </span>
+      </a>
     </div>
 
     <!-- Main Content -->
@@ -29,7 +36,8 @@
       <h1>Contact Us</h1>
       <h6>If you have any questions, feel free to reach out!</h6>
       <h6>
-        Email: <a href="mailto:VidGame@gamestore.com">VidGame@gamestore.com</a>
+        Email:
+        <a href="mailto:PlayDistrict@gmail.com">PlayDistrict@gmail.com</a>
       </h6>
     </div>
 
@@ -76,6 +84,7 @@
   </body>
 
   <!-- Footer -->
-  <footer>&copy; 2025 VidGame. All rights reserved.</footer>
+  <footer class="text-center mt-4">
+    &copy; 2025 PlayDistrict. All rights reserved.
+  </footer>
 </html>
-
