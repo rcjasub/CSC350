@@ -1,6 +1,5 @@
 <?php
-// For Render deployment
-$db_url = getenv('DATABASE_URL');
+$db_url = getenv('DATABASE_URL') ?: 'postgresql://myshop_9syl_user:QgcOvYKTi7t6tYJYEBmI1Xuu4AWuRbXG@dpg-d4og6be3jp1c73dh028g-a/myshop_9syl';
 
 if ($db_url) {
     $db_parts = parse_url($db_url);
@@ -10,7 +9,7 @@ if ($db_url) {
     $pass = $db_parts['pass'];
     $dbname = ltrim($db_parts['path'], '/');
 } else {
-    // Local dev using .env
+    // fallback for local Docker
     $host = getenv('DB_HOST') ?: 'db';
     $user = getenv('DB_USER') ?: 'postgres';
     $pass = getenv('DB_PASSWORD') ?: 'postgres';
