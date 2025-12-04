@@ -1,13 +1,2 @@
 .env
 
-# Image files - use Git LFS instead
-*.jpeg
-*.jpg
-*.png
-*.webp
-*.gif
-*.bmp
-*.svg
-
-# Optional: exclude the images directory entirely if you prefer
-# gameStore/images/
