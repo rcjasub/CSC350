@@ -1,8 +1,8 @@
 <?php
-$servername = "db"; // Docker service name
-$username = "root";
-$password = "root";
-$database = "myshop";
+$servername = getenv('MYSQL_HOST') ?: 'db';
+$username   = getenv('MYSQL_USER') ?: 'root';
+$password   = getenv('MYSQL_PASSWORD') ?: 'root';
+$database   = getenv('MYSQL_DATABASE') ?: 'myshop';
 
 $conn = new mysqli($servername, $username, $password, $database);
 
