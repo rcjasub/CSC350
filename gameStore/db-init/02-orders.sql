@@ -1,11 +1,12 @@
--- Drop table if it exists
 DROP TABLE IF EXISTS orders;
 
--- Orders table
 CREATE TABLE orders (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
-    status ENUM('cart','pending','completed') DEFAULT 'cart',
+    status VARCHAR(20) DEFAULT 'cart' CHECK (status IN ('cart','pending','completed')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    CONSTRAINT fk_user
+        FOREIGN KEY(user_id) 
+        REFERENCES users(id)
+        ON DELETE CASCADE
 );

@@ -1,12 +1,26 @@
 <?php
-$servername = getenv('MYSQL_HOST') ?: 'db';
-$username   = getenv('MYSQL_USER') ?: 'root';
-$password   = getenv('MYSQL_PASSWORD') ?: 'root';
-$database   = getenv('MYSQL_DATABASE') ?: 'myshop';
+// For Render deployment
+$db_url = getenv('DATABASE_URL');
 
-$conn = new mysqli($servername, $username, $password, $database);
+if ($db_url) {
+    $db_parts = parse_url($db_url);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    $host = $db_parts['host'];
+    $user = $db_parts['user'];
+    $pass = $db_parts['pass'];
+    $dbname = ltrim($db_parts['path'], '/');
+} else {
+    // Local dev using .env
+    $host = getenv('DB_HOST') ?: 'db';
+    $user = getenv('DB_USER') ?: 'postgres';
+    $pass = getenv('DB_PASSWORD') ?: 'postgres';
+    $dbname = getenv('DB_NAME') ?: 'myshop';
+}
+
+// Connect to PostgreSQL
+$conn = pg_connect("host=$host dbname=$dbname user=$user password=$pass");
+
+if (!$conn) {
+    die("Connection failed: " . pg_last_error());
 }
 ?>
