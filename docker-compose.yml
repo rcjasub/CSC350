@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./gameStore
+      dockerfile: Dockerfile
+    container_name: myshop-web
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    volumes:
+      - ./gameStore:/var/www/html  # <-- mount your host folder
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+
+  db:
+    image: mysql:8.0
+    container_name: myshop-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./gameStore/db-init:/docker-entrypoint-initdb.d
+
+volumes:
+  db_data:

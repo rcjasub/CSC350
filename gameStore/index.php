@@ -1,3 +1,4 @@
+<?php require_once 'config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -51,7 +52,7 @@
       <div class="container-fluid mt-4 p-4 bg-warning text-light rounded">
         <h3 class="p">Special Deal!</h3>
         <p class="p">Get up to 30% off select games this weekend only!</p>
-        <a href="product1.html" class="btn btn-dark">Shop Deals</a>
+        <a href="product1.php" class="btn btn-dark">Shop Deals</a>
       </div>
 
       <!-- Genre Carousel -->
