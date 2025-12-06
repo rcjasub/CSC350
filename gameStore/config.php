@@ -1,14 +1,17 @@
 <?php
-// Harden session cookie parameters for all back-end endpoints that include this file
-$secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
-session_set_cookie_params([
-    'lifetime' => 0,
-    'path' => '/',
-    'domain' => $_SERVER['HTTP_HOST'] ?? '',
-    'secure' => $secure,
-    'httponly' => true,
-    'samesite' => 'Lax'
-]);
+// Session cookie params MUST be set before any session_start() is called
+// Only set if session not already started
+if(session_status() === PHP_SESSION_NONE) {
+    $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'domain' => $_SERVER['HTTP_HOST'] ?? '',
+        'secure' => $secure,
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+}
 
 // Use DATABASE_URL if it's set (e.g., on Render), otherwise local Docker
 if (getenv('DATABASE_URL')) {
