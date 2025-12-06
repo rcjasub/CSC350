@@ -37,6 +37,14 @@ $password = password_hash($raw_password, PASSWORD_DEFAULT);
 
 // Check for existing user
 $res = pg_query_params($conn, "SELECT id FROM users WHERE email=$1", [$email]);
+if ($res === false) {
+    // Database query failed (likely missing table). Return JSON error and log server-side.
+    $err = pg_last_error($conn);
+    error_log('Register: DB query failed: ' . $err);
+    echo json_encode(['success' => false, 'message' => 'Server database error. Please contact the administrator.']);
+    exit;
+}
+
 if(pg_fetch_assoc($res)){
     echo json_encode(['success'=>false, 'message'=>'Email already exists']);
     exit;
