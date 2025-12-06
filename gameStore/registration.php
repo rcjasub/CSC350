@@ -10,7 +10,7 @@
   </head>
   <body class="bg-light">
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div>
       <div id="nav-links">
         <!-- Navbar will be injected here by navbar.js -->
       </div>
