@@ -95,6 +95,8 @@ function calcTotals() {
 // --------------------
 function loadCartGame() {
   const container = document.getElementById("cart-container");
+  if (!container) return; // Exit if container doesn't exist (e.g., on product pages)
+  
   container.innerHTML = ""; // clear old items
 
   // If cart is empty, show a friendly message
