@@ -18,6 +18,7 @@
               <div id="message"></div>
 
               <form id="login-form" novalidate>
+                <input type="hidden" name="csrf_token" value="<?php session_start(); echo htmlspecialchars(get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
                 <div class="mb-3">
                   <label class="form-label">Email</label>
                   <input type="email" class="form-control" name="email" placeholder="you@example.com" required>
@@ -81,3 +82,4 @@
     </script>
   </body>
 </html>
+<?php require_once 'config.php'; ?>

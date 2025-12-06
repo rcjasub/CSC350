@@ -18,6 +18,7 @@
               <div id="message"></div>
 
               <form id="register-form" novalidate>
+                <input type="hidden" name="csrf_token" value="<?php session_start(); echo htmlspecialchars(get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
                 <div class="mb-3">
                   <label class="form-label">Username</label>
                   <input type="text" class="form-control" name="username" placeholder="Your username" required>
@@ -77,8 +78,8 @@
           const res = await fetch('backend/register.php', {method:'POST', body: formData, credentials: 'include'});
           const data = await res.json();
           if(data.success){
-            // Redirect to login page with a query message
-            window.location.href = 'login.php';
+            showMessage('Account created successfully! Redirecting...', 'success');
+            setTimeout(() => window.location.href = 'index.php', 2000);
           } else {
             showMessage(data.message || 'Registration failed');
           }
@@ -92,3 +93,4 @@
     </script>
   </body>
 </html>
+<?php require_once 'config.php'; ?>
