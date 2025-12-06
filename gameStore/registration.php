@@ -3,35 +3,39 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login - PlayDistrict</title>
+    <title>Register - PlayDistrict</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
   </head>
   <body class="bg-light">
     <div class="container py-5">
       <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
+        <div class="col-md-6 col-lg-6">
           <div class="card shadow-sm">
             <div class="card-body p-4">
-              <h3 class="card-title mb-3">Sign in to PlayDistrict</h3>
+              <h3 class="card-title mb-3">Create an account</h3>
 
               <div id="message"></div>
 
-              <form id="login-form" novalidate>
+              <form id="register-form" novalidate>
+                <div class="mb-3">
+                  <label class="form-label">Username</label>
+                  <input type="text" class="form-control" name="username" placeholder="Your username" required>
+                </div>
                 <div class="mb-3">
                   <label class="form-label">Email</label>
                   <input type="email" class="form-control" name="email" placeholder="you@example.com" required>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Password</label>
-                  <input type="password" class="form-control" name="password" placeholder="Password" required>
+                  <input type="password" class="form-control" name="password" placeholder="At least 8 characters" required>
                 </div>
                 <div class="d-grid">
-                  <button id="submit-btn" class="btn btn-primary" type="submit">Sign In</button>
+                  <button id="submit-btn" class="btn btn-success" type="submit">Register</button>
                 </div>
               </form>
 
-              <p class="mt-3 mb-0">Don't have an account? <a href="registration.php">Register</a></p>
+              <p class="mt-3 mb-0">Already have an account? <a href="login.php">Sign in</a></p>
             </div>
           </div>
         </div>
@@ -39,7 +43,7 @@
     </div>
 
     <script>
-      const form = document.getElementById('login-form');
+      const form = document.getElementById('register-form');
       const msg = document.getElementById('message');
       const submitBtn = document.getElementById('submit-btn');
 
@@ -51,31 +55,38 @@
         e.preventDefault();
         msg.innerHTML = '';
 
-        const formData = new FormData(form); 
-        const email = formData.get('email')?.trim();
+        const formData = new FormData(form);
+        const username = (formData.get('username') || '').trim();
+        const email = (formData.get('email') || '').trim();
         const password = formData.get('password') || '';
 
-        if(!email || !password){
-          showMessage('Email and password are required');
+        if(!username || !email || !password){
+          showMessage('All fields are required');
+          return;
+        }
+
+        if(password.length < 8){
+          showMessage('Password must be at least 8 characters');
           return;
         }
 
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Signing in...';
+        submitBtn.textContent = 'Registering...';
 
         try{
-          const res = await fetch('backend/login.php', {method:'POST', body: formData, credentials: 'include'});
+          const res = await fetch('backend/register.php', {method:'POST', body: formData, credentials: 'include'});
           const data = await res.json();
           if(data.success){
-            window.location.href = 'index.php';
+            // Redirect to login page with a query message
+            window.location.href = 'login.php';
           } else {
-            showMessage(data.message || 'Invalid credentials');
+            showMessage(data.message || 'Registration failed');
           }
         }catch(err){
           showMessage('Network error — please try again');
         } finally {
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Sign In';
+          submitBtn.textContent = 'Register';
         }
       });
     </script>
