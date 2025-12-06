@@ -14,6 +14,7 @@ async function isUserLoggedIn() {
   try {
     const res = await fetch('backend/check-auth.php', { credentials: 'include' });
     const data = await res.json();
+    console.log('Auth check result:', data);
     return data.logged_in === true;
   } catch (err) {
     console.error('Auth check failed:', err);
