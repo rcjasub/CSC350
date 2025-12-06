@@ -8,6 +8,53 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || []; //conver to object/array
 
 // --------------------
+// CHECK IF USER IS LOGGED IN
+// --------------------
+async function isUserLoggedIn() {
+  try {
+    const res = await fetch('backend/check-auth.php', { credentials: 'include' });
+    const data = await res.json();
+    return data.logged_in === true;
+  } catch (err) {
+    console.error('Auth check failed:', err);
+    return false;
+  }
+}
+
+// --------------------
+// SHOW LOGIN REQUIRED MODAL
+// --------------------
+function showLoginModal() {
+  const modal = document.createElement('div');
+  modal.className = 'modal fade';
+  modal.id = 'loginModal';
+  modal.setAttribute('tabindex', '-1');
+  modal.setAttribute('aria-labelledby', 'loginModalLabel');
+  modal.setAttribute('aria-hidden', 'true');
+  modal.innerHTML = `
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Sign In Required</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>You need to be logged in to add items to your cart and make purchases.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <a href="login.php" class="btn btn-primary">Sign In</a>
+          <a href="registration.php" class="btn btn-success">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  const bsModal = new bootstrap.Modal(modal);
+  bsModal.show();
+}
+
+// --------------------
 // UPDATE CART BADGE BASED OF ITEMS
 // --------------------
 function updateCartCount() {

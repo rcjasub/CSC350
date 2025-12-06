@@ -125,7 +125,13 @@ products.forEach(product => {
     const button = col.querySelector(".add-to-cart-btn");
 
     // Add to cart on click (uses cart + updateCartCount from cart.js)
-    col.querySelector(".add-to-cart-btn").addEventListener("click", () => {
+    col.querySelector(".add-to-cart-btn").addEventListener("click", async () => {
+        // Check if user is logged in
+        const loggedIn = await isUserLoggedIn();
+        if (!loggedIn) {
+            showLoginModal();
+            return;
+        }
 
         //check if cart has already has item in the cart 
         const exists = cart.some(item => item.title === product.title);
