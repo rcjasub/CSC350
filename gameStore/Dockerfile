@@ -18,5 +18,5 @@ COPY . /var/www/html/
 # Set working directory
 WORKDIR /var/www/html/
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Install PHP dependencies (skip if composer.json doesn't exist or fails)
+RUN if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader --no-interaction || true; fi
