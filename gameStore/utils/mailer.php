@@ -1,38 +1,50 @@
 <?php
-// Email wrapper: tries SendGrid first, falls back to PHPMailer SMTP, then simple mail()
+// Email wrapper: tries SendGrid API first, falls back to PHPMailer SMTP, then simple mail()
 
 function send_email_smtp($to, $subject, $html_body, $from_name = null, $from_email = null) {
     // Prefer environment variables
     $from_email = $from_email ?? (getenv('EMAIL_FROM') ?: null);
     $from_name = $from_name ?? (getenv('EMAIL_FROM_NAME') ?: 'PlayDistrict');
 
-    // Try SendGrid first if API key is available
+    // Try SendGrid first if API key is available (using curl - no library needed)
     $sendgridKey = getenv('SENDGRID_API_KEY');
-    if ($sendgridKey) {
-        $autoload = __DIR__ . '/../vendor/autoload.php';
-        if (file_exists($autoload)) {
-            require_once $autoload;
-            try {
-                $email = new \SendGrid\Mail\Mail();
-                $email->setFrom($from_email, $from_name);
-                $email->setSubject($subject);
-                $email->addTo($to);
-                $email->addContent("text/html", $html_body);
-                
-                $sendgrid = new \SendGrid($sendgridKey);
-                $response = $sendgrid->send($email);
-                
-                if ($response->statusCode() >= 200 && $response->statusCode() < 300) {
-                    return true;
-                }
-            } catch (Exception $e) {
-                $logDir = __DIR__ . '/../logs';
-                if (!is_dir($logDir)) @mkdir($logDir, 0755, true);
-                $logFile = $logDir . '/email.log';
-                $msg = '['.date('c').'] SendGrid error: ' . $e->getMessage() . PHP_EOL;
-                @file_put_contents($logFile, $msg, FILE_APPEND | LOCK_EX);
-                // Fall through to PHPMailer
+    if ($sendgridKey && $from_email) {
+        try {
+            $data = [
+                'personalizations' => [[
+                    'to' => [['email' => $to]]
+                ]],
+                'from' => ['email' => $from_email, 'name' => $from_name],
+                'subject' => $subject,
+                'content' => [['type' => 'text/html', 'value' => $html_body]]
+            ];
+            
+            $ch = curl_init('https://api.sendgrid.com/v3/mail/send');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Authorization: Bearer ' . $sendgridKey,
+                'Content-Type: application/json'
+            ]);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+            
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+            
+            if ($httpCode >= 200 && $httpCode < 300) {
+                return true;
             }
+            
+            // Log error
+            $logDir = __DIR__ . '/../logs';
+            if (!is_dir($logDir)) @mkdir($logDir, 0755, true);
+            $logFile = $logDir . '/email.log';
+            $msg = '['.date('c').'] SendGrid error: HTTP ' . $httpCode . ' - ' . $response . PHP_EOL;
+            @file_put_contents($logFile, $msg, FILE_APPEND | LOCK_EX);
+        } catch (Exception $e) {
+            // Fall through to PHPMailer
         }
     }
 
