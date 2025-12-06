@@ -1,4 +1,5 @@
 <?php
+set_time_limit(30); // Max 30 seconds for this script
 session_start();
 require __DIR__ . '/../config.php';
 require __DIR__ . '/../utils/email.php';

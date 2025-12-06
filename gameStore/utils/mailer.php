@@ -27,6 +27,9 @@ function send_email_smtp($to, $subject, $html_body, $from_name = null, $from_ema
             $mail->Password = $smtpPass;
             $mail->SMTPSecure = $smtpSecure === 'ssl' ? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS : PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = intval($smtpPort);
+            $mail->Timeout = 15; // 15 second timeout
+            $mail->SMTPDebug = 0; // Disable debug output
+            $mail->SMTPKeepAlive = false; // Don't keep connection alive
 
             $mail->setFrom($from_email, $from_name);
             $mail->addAddress($to);
