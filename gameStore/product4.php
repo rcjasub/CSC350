@@ -19,11 +19,11 @@
   </head>
 
   <body>
-    <!-- Sidebar -->
+     <!-- Sidebar -->
     <div class="sidebar">
-      <a href="index.php" class="sidebar-link active"><span>Home</span></a>
-      <a href="about.php" class="sidebar-link"><span>About</span></a>
-      <a href="contact.php" class="sidebar-link"><span>Contact</span></a>
+      <div id="nav-links">
+        <!-- Navbar will be injected here by navbar.js -->
+      </div>
     </div>
 
     <div class="H1SALE">
@@ -72,5 +72,6 @@
     </nav>
     <script src="js/cart.js"></script>
     <script src="js/product4.js"></script>
+    <script src="js/navbar.js"></script>
   </body>
 </html>

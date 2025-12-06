@@ -22,9 +22,9 @@
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
-      <a href="index.php" class="sidebar-link active"><span>Home</span></a>
-      <a href="about.php" class="sidebar-link"><span>About</span></a>
-      <a href="contact.php" class="sidebar-link"><span>Contact</span></a>
+      <div id="nav-links">
+        <!-- Navbar will be injected here by navbar.js -->
+      </div>
     </div>
 
     <button
@@ -103,6 +103,7 @@
     </footer>
 
     <!-- Bootstrap JS Bundle -->
+    <script src="js/navbar.js"></script>
     <script src="js/cart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>

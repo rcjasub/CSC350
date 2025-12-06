@@ -1,3 +1,4 @@
+<?php require_once 'config.php'; session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,6 +9,13 @@
     <link rel="stylesheet" href="css/global.css">
   </head>
   <body class="bg-light">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div id="nav-links">
+        <!-- Navbar will be injected here by navbar.js -->
+      </div>
+    </div>
+
     <div class="container py-5">
       <div class="row justify-content-center">
         <div class="col-md-6 col-lg-6">
@@ -18,7 +26,7 @@
               <div id="message"></div>
 
               <form id="register-form" novalidate>
-                <input type="hidden" name="csrf_token" value="<?php session_start(); echo htmlspecialchars(get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
                 <div class="mb-3">
                   <label class="form-label">Username</label>
                   <input type="text" class="form-control" name="username" placeholder="Your username" required>
@@ -91,6 +99,6 @@
         }
       });
     </script>
+    <script src="js/navbar.js"></script>
   </body>
 </html>
-<?php require_once 'config.php'; ?>

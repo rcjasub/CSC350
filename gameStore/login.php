@@ -1,3 +1,4 @@
+<?php require_once 'config.php'; session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,8 +7,17 @@
     <title>Login - PlayDistrict</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/contact.css">
   </head>
-  <body class="bg-light">
+  <body>
+
+      <!-- Sidebar -->
+    <div class="sidebar">
+      <div id="nav-links">
+        <!-- Navbar will be injected here by navbar.js -->
+      </div>
+    </div>
+
     <div class="container py-5">
       <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
@@ -18,7 +28,7 @@
               <div id="message"></div>
 
               <form id="login-form" novalidate>
-                <input type="hidden" name="csrf_token" value="<?php session_start(); echo htmlspecialchars(get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(get_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
                 <div class="mb-3">
                   <label class="form-label">Email</label>
                   <input type="email" class="form-control" name="email" placeholder="you@example.com" required>
@@ -80,6 +90,6 @@
         }
       });
     </script>
+    <script src="js/navbar.js"></script>
   </body>
 </html>
-<?php require_once 'config.php'; ?>

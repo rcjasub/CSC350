@@ -14,18 +14,12 @@
 </head>
 
 <body>
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <a href="index.php" class="sidebar-link active">
-      <span> Home </span>
-    </a>
-    <a href="about.php" class="sidebar-link active">
-      <span> About </span>
-    </a>
-    <a href="contact.php" class="sidebar-link active">
-      <span> Contact </span>
-    </a>
-  </div>
+     <!-- Sidebar -->
+    <div class="sidebar">
+      <div id="nav-links">
+        <!-- Navbar will be injected here by navbar.js -->
+      </div>
+    </div>
 
   <div class="content">
     <h1>About Us</h1>
@@ -53,4 +47,5 @@
   &copy; 2025 PlayDistrict. All rights reserved.
 </footer>
 
+<script src="js/navbar.js"></script>
 </html>
