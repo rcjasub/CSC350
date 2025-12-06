@@ -11,12 +11,80 @@ body {
   background-color: #121212;
 }
 
-/* Sidebar Styles */
-.sidebar {
+/* Top Bar Styles */
+.top-bar {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
+  right: 0;
+  height: 60px;
+  background-color: #0a0a0a;
+  border-bottom: 1px solid #27272a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  z-index: 1001;
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.top-bar-logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fbbf24;
+  text-decoration: none;
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.top-bar-btn {
+  padding: 8px 18px;
+  background-color: transparent;
+  color: #c9d1d9;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.top-bar-btn:hover {
+  background-color: #27272a;
+  color: #ffffff;
+}
+
+.top-bar-btn.primary {
+  background-color: #fbbf24;
+  color: #0a0a0a;
+  font-weight: 500;
+}
+
+.top-bar-btn.primary:hover {
+  background-color: #f59e0b;
+}
+
+.top-bar-cart {
+  position: relative;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: calc(100vh - 60px);
   width: 280px;
   background-color: #121212;
   padding: 20px 20px;
@@ -47,8 +115,9 @@ body {
 
 .main-content {
   margin-left: 250px;
+  margin-top: 60px;
   padding: 40px;
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
 }
 
 footer {
@@ -91,43 +160,25 @@ ul li {
 }
 
 
-/* Floating Cart Button */
+/* Floating Cart Button (hidden - now in top bar) */
 .floating-cart-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #fbbf24 0%);
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 1000;
-}
-
-.floating-cart-btn svg {
-  width: 20px;
-  height: 20px;
-  color: #121212;
+  display: none;
 }
 
 .cart-badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -8px;
+  right: -8px;
   background-color: #d73a3a;
   color: white;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  min-width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: bold;
-  border: 2px solid #121212;
+  padding: 0 5px;
 }
 
