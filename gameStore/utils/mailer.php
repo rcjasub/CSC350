@@ -1,11 +1,40 @@
 <?php
-// PHPMailer wrapper: attempts to send via SMTP using PHPMailer if available.
-// Falls back to send_email_simple() in utils/email.php if PHPMailer isn't installed.
+// Email wrapper: tries SendGrid first, falls back to PHPMailer SMTP, then simple mail()
 
 function send_email_smtp($to, $subject, $html_body, $from_name = null, $from_email = null) {
     // Prefer environment variables
     $from_email = $from_email ?? (getenv('EMAIL_FROM') ?: null);
     $from_name = $from_name ?? (getenv('EMAIL_FROM_NAME') ?: 'PlayDistrict');
+
+    // Try SendGrid first if API key is available
+    $sendgridKey = getenv('SENDGRID_API_KEY');
+    if ($sendgridKey) {
+        $autoload = __DIR__ . '/../vendor/autoload.php';
+        if (file_exists($autoload)) {
+            require_once $autoload;
+            try {
+                $email = new \SendGrid\Mail\Mail();
+                $email->setFrom($from_email, $from_name);
+                $email->setSubject($subject);
+                $email->addTo($to);
+                $email->addContent("text/html", $html_body);
+                
+                $sendgrid = new \SendGrid($sendgridKey);
+                $response = $sendgrid->send($email);
+                
+                if ($response->statusCode() >= 200 && $response->statusCode() < 300) {
+                    return true;
+                }
+            } catch (Exception $e) {
+                $logDir = __DIR__ . '/../logs';
+                if (!is_dir($logDir)) @mkdir($logDir, 0755, true);
+                $logFile = $logDir . '/email.log';
+                $msg = '['.date('c').'] SendGrid error: ' . $e->getMessage() . PHP_EOL;
+                @file_put_contents($logFile, $msg, FILE_APPEND | LOCK_EX);
+                // Fall through to PHPMailer
+            }
+        }
+    }
 
     // Try to load PHPMailer via Composer
     $autoload = __DIR__ . '/../vendor/autoload.php';
