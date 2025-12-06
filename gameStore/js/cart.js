@@ -157,8 +157,13 @@ function clearCart() {
 // CHECKOUT
 // --------------------
 
-function checkout()
+async function checkout()
 {
+   const loggedIn = await isUserLoggedIn();
+   if (!loggedIn) {
+       showLoginModal();
+       return;
+   }
    clearCart();
    alert("Thanking you for shopping at PlayDistrict!");
 }

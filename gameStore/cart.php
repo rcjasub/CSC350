@@ -1,13 +1,4 @@
-<?php 
-session_start();
-require_once 'config.php';
-
-// Redirect to login if not logged in
-if(!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
-?>
+<?php require_once 'config.php'; session_start(); ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -37,6 +28,15 @@ if(!isset($_SESSION['user_id'])) {
     </div>
 
     <div class="main-content container mt-4">
+      <!-- Login Alert for non-logged-in users -->
+      <div id="login-alert" style="display: none;">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>Sign in to add items!</strong> You need to be logged in to add games to your cart and checkout.
+          <a href="login.php" class="btn btn-sm btn-warning ms-2">Sign In</a>
+          <a href="registration.php" class="btn btn-sm btn-success ms-1">Sign Up</a>
+        </div>
+      </div>
+
       <div class="row">
         <!-- Left: Cart Items -->
         <div class="col-lg-4 col-md-12 mb-4 order-lg-1 order-2">
@@ -73,5 +73,19 @@ if(!isset($_SESSION['user_id'])) {
 
     <script src="js/cart.js"></script>
     <script src="js/navbar.js"></script>
+    <script>
+      // Show login alert if user is not logged in
+      (async function() {
+        try {
+          const res = await fetch('backend/check-auth.php', { credentials: 'include' });
+          const data = await res.json();
+          if (!data.logged_in) {
+            document.getElementById('login-alert').style.display = 'block';
+          }
+        } catch (err) {
+          console.error('Error checking auth:', err);
+        }
+      })();
+    </script>
   </body>
 </html>
