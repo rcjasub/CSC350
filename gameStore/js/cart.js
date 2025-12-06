@@ -171,18 +171,36 @@ function clearCart() {
 async function checkout()
 {
    try {
+     // Show loading state
+     const checkoutBtn = document.querySelector('button[onclick="checkout()"]');
+     const originalText = checkoutBtn ? checkoutBtn.textContent : '';
+     if (checkoutBtn) {
+       checkoutBtn.disabled = true;
+       checkoutBtn.textContent = 'Processing...';
+     }
+
      // Send cart to server to process checkout. Server will enforce login.
+     const controller = new AbortController();
+     const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
      const res = await fetch('backend/checkout.php', {
        method: 'POST',
        credentials: 'include',
        cache: 'no-store',
        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' },
-       body: JSON.stringify({ cart })
+       body: JSON.stringify({ cart }),
+       signal: controller.signal
      });
+
+     clearTimeout(timeoutId);
 
      if (res.status === 401) {
        // Not authenticated
        showLoginModal();
+       if (checkoutBtn) {
+         checkoutBtn.disabled = false;
+         checkoutBtn.textContent = originalText;
+       }
        return;
      }
 
@@ -190,19 +208,43 @@ async function checkout()
        const txt = await res.text();
        console.error('Checkout failed:', res.status, txt);
        alert('Checkout failed. Please try again.');
+       if (checkoutBtn) {
+         checkoutBtn.disabled = false;
+         checkoutBtn.textContent = originalText;
+       }
        return;
      }
 
      const data = await res.json();
+     console.log('Checkout response:', data);
+     
      if (data.success) {
        clearCart();
-       alert('Thank you for shopping at PlayDistrict! Order placed.');
+       const emailMsg = data.email_sent ? 'A confirmation email has been sent.' : 'Note: Email confirmation could not be sent.';
+       alert(`Thank you for shopping at PlayDistrict! Order placed. ${emailMsg}`);
+       if (checkoutBtn) {
+         checkoutBtn.disabled = false;
+         checkoutBtn.textContent = originalText;
+       }
      } else {
        alert(data.message || 'Checkout failed');
+       if (checkoutBtn) {
+         checkoutBtn.disabled = false;
+         checkoutBtn.textContent = originalText;
+       }
      }
    } catch (err) {
      console.error('Checkout error:', err);
-     alert('An error occurred during checkout.');
+     if (err.name === 'AbortError') {
+       alert('Checkout is taking longer than expected. Please check your order history.');
+     } else {
+       alert('An error occurred during checkout.');
+     }
+     const checkoutBtn = document.querySelector('button[onclick="checkout()"]');
+     if (checkoutBtn) {
+       checkoutBtn.disabled = false;
+       checkoutBtn.textContent = 'Checkout';
+     }
    }
 }
 
