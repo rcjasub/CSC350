@@ -124,29 +124,14 @@ products.forEach(product => {
     // find the button inside this card
     const button = col.querySelector(".add-to-cart-btn");
 
-    // Add to cart on click (uses cart + updateCartCount from cart.js)
+    // Add to cart on click (uses centralized addToCart from cart.js)
     col.querySelector(".add-to-cart-btn").addEventListener("click", async () => {
-        // Check if user is logged in
-        const loggedIn = await isUserLoggedIn();
-        if (!loggedIn) {
-            showLoginModal();
-            return;
+        try {
+            await window.addToCart(product);
+        } catch (err) {
+            console.error('Add to cart error:', err);
+            alert('Could not add to cart.');
         }
-
-        //check if cart has already has item in the cart 
-        const exists = cart.some(item => item.title === product.title);
-
-        if (exists) {
-            alert(`${product.title} is already in your cart.`);
-            return; // stop here, don't add another copy
-        }
-
-        //else 
-        cart.push(product);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        updateCartCount();
-        console.log(cart);
-        alert(`${product.title} added to cart!`);
     });
 });
 

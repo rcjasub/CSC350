@@ -12,7 +12,15 @@ let cart = JSON.parse(localStorage.getItem("cart")) || []; //conver to object/ar
 // --------------------
 async function isUserLoggedIn() {
   try {
-    const res = await fetch('backend/check-auth.php', { credentials: 'include' });
+    const res = await fetch('backend/check-auth.php', {
+      credentials: 'include',
+      cache: 'no-store',
+      headers: { 'Cache-Control': 'no-cache' }
+    });
+    if (!res.ok) {
+      console.warn('Auth check responded with non-OK status', res.status);
+      return false;
+    }
     const data = await res.json();
     console.log('Auth check result:', data);
     return data.logged_in === true;
@@ -162,14 +170,71 @@ function clearCart() {
 
 async function checkout()
 {
-   const loggedIn = await isUserLoggedIn();
-   if (!loggedIn) {
+   try {
+     // Send cart to server to process checkout. Server will enforce login.
+     const res = await fetch('backend/checkout.php', {
+       method: 'POST',
+       credentials: 'include',
+       cache: 'no-store',
+       headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' },
+       body: JSON.stringify({ cart })
+     });
+
+     if (res.status === 401) {
+       // Not authenticated
        showLoginModal();
        return;
+     }
+
+     if (!res.ok) {
+       const txt = await res.text();
+       console.error('Checkout failed:', res.status, txt);
+       alert('Checkout failed. Please try again.');
+       return;
+     }
+
+     const data = await res.json();
+     if (data.success) {
+       clearCart();
+       alert('Thank you for shopping at PlayDistrict! Order placed.');
+     } else {
+       alert(data.message || 'Checkout failed');
+     }
+   } catch (err) {
+     console.error('Checkout error:', err);
+     alert('An error occurred during checkout.');
    }
-   clearCart();
-   alert("Thanking you for shopping at PlayDistrict!");
 }
+
+// --------------------
+// CENTRALIZED ADD TO CART (ENSURE LOGGED IN)
+// --------------------
+async function addToCart(product) {
+  const loggedIn = await isUserLoggedIn();
+  if (!loggedIn) {
+    showLoginModal();
+    return false;
+  }
+
+  // prevent duplicates
+  const exists = cart.some(item => item.title === product.title);
+  if (exists) {
+    alert(`${product.title} is already in your cart.`);
+    return false;
+  }
+
+  cart.push(product);
+  try { localStorage.setItem('cart', JSON.stringify(cart)); } catch (err) { console.error('Failed to save cart:', err); }
+  updateCartCount();
+  calcTotals();
+  // If we're on cart page, reload items
+  try { loadCartGame(); } catch (err) { /* ignore */ }
+  alert(`${product.title} added to cart!`);
+  return true;
+}
+
+// Expose globally for product pages
+window.addToCart = addToCart;
 
 // --------------------
 // RUN ON PAGE LOAD
