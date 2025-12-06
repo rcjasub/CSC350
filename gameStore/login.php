@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/contact.css">
   </head>
-  <body>
+  <body class="bg-light">
 
       <!-- Sidebar -->
     <div class="sidebar">
