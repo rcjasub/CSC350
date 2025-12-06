@@ -1,9 +1,8 @@
 <?php
 session_start();
-require __DIR__ . '/../config.php';
 header('Content-Type: application/json');
 
-// Check if user is logged in
+// Check if user is logged in (no DB needed - just checking session)
 $is_logged_in = isset($_SESSION['user_id']);
 
 echo json_encode([
