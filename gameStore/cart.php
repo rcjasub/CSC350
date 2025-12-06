@@ -1,3 +1,13 @@
+<?php 
+session_start();
+require_once 'config.php';
+
+// Redirect to login if not logged in
+if(!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -21,9 +31,9 @@
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
-      <a href="index.php" class="sidebar-link active"><span>Home</span></a>
-      <a href="about.php" class="sidebar-link"><span>About</span></a>
-      <a href="contact.php" class="sidebar-link"><span>Contact</span></a>
+      <div id="nav-links">
+        <!-- Navbar will be injected here by navbar.js -->
+      </div>
     </div>
 
     <div class="main-content container mt-4">
@@ -62,5 +72,6 @@
     </div>
 
     <script src="js/cart.js"></script>
+    <script src="js/navbar.js"></script>
   </body>
 </html>
