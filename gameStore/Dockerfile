@@ -1,10 +1,13 @@
 FROM php:8.2-apache
 
-# Install system dependencies for PostgreSQL
-RUN apt-get update && apt-get install -y libpq-dev
+# Install system dependencies for PostgreSQL and Composer
+RUN apt-get update && apt-get install -y libpq-dev unzip git
 
 # Install PHP extensions
 RUN docker-php-ext-install mysqli pgsql pdo_pgsql
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Enable Apache rewrite module
 RUN a2enmod rewrite
@@ -14,3 +17,6 @@ COPY . /var/www/html/
 
 # Set working directory
 WORKDIR /var/www/html/
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader

@@ -104,14 +104,14 @@ body {
 .sidebar-link {
   display: flex;
   align-items: center;
-  padding: 14px 20px;
+  padding: 18px 24px;
   background-color: transparent;
   color: #c9d1d9;
   text-decoration: none;
   border-radius: 0;
   transition: all 0.2s ease;
-  font-size: 15px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 500;
   border-left: 3px solid transparent;
   font-style: oblique;
 }
