@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simple Online Store</title>
+    <style></style>
+  </head>
+  <body>
+    <h1>My Online Store</h1>
+
+    <!-- Form to add new product -->
+    <form id="addProductForm">
+      <input type="text" name="name" placeholder="Product Name" required />
+      <input type="text" name="image" placeholder="Image URL" required />
+      <input
+        type="text"
+        name="description"
+        placeholder="Description"
+        required
+      />
+      <input
+        type="number"
+        name="price"
+        placeholder="Price"
+        required
+        step="0.01"
+      />
+      <button type="submit">Add Product</button>
+    </form>
+
+    <!-- Container for displaying products -->
+    <div id="productsContainer"></div>
+
+    <script>
+      // Open or create the database
+      let request = indexedDB.open("StoreDB", 1);
+
+      // Create object store if this is the first time
+      request.onupgradeneeded = function (event) {
+        let db = event.target.result;
+        let store = db.createObjectStore("products", {
+          keyPath: "id",
+          autoIncrement: true,
+        });
+
+        // Optional: preload 10 products for exam
+        const initialProducts = [
+          {
+            name: "Mouse",
+            image: "https://via.placeholder.com/120",
+            description: "RGB Mouse",
+            price: 49.99,
+          },
+          {
+            name: "Keyboard",
+            image: "https://via.placeholder.com/120",
+            description: "Mechanical Keyboard",
+            price: 89.99,
+          },
+          {
+            name: "Headphones",
+            image: "https://via.placeholder.com/120",
+            description: "Wireless Headphones",
+            price: 69.99,
+          },
+          {
+            name: "Monitor",
+            image: "https://via.placeholder.com/120",
+            description: "HD Monitor",
+            price: 129.99,
+          },
+          {
+            name: "Laptop Stand",
+            image: "https://via.placeholder.com/120",
+            description: "Ergonomic Stand",
+            price: 39.99,
+          },
+          {
+            name: "Webcam",
+            image: "https://via.placeholder.com/120",
+            description: "HD Webcam",
+            price: 59.99,
+          },
+          {
+            name: "USB Hub",
+            image: "https://via.placeholder.com/120",
+            description: "4-Port Hub",
+            price: 19.99,
+          },
+          {
+            name: "Charger",
+            image: "https://via.placeholder.com/120",
+            description: "Fast Charger",
+            price: 24.99,
+          },
+          {
+            name: "Mouse Pad",
+            image: "https://via.placeholder.com/120",
+            description: "Gaming Mouse Pad",
+            price: 14.99,
+          },
+          {
+            name: "Speakers",
+            image: "https://via.placeholder.com/120",
+            description: "Bluetooth Speakers",
+            price: 49.99,
+          },
+        ];
+
+        initialProducts.forEach((p) => store.add(p));
+      };
+
+      request.onsuccess = function (event) {
+        let db = event.target.result;
+
+        // Display products immediately
+        showProducts();
+
+        // Form to add new product
+        let form = document.getElementById("addProductForm");
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          let newProduct = {
+            name: form.name.value,
+            image: form.image.value,
+            description: form.description.value,
+            price: parseFloat(form.price.value),
+          };
+
+          let tx = db.transaction("products", "readwrite");
+          let store = tx.objectStore("products");
+          store.add(newProduct);
+
+          tx.oncomplete = function () {
+            form.reset();
+            showProducts();
+          };
+        });
+
+        // Function to read and display products
+        function showProducts() {
+          let tx = db.transaction("products", "readonly");
+          let store = tx.objectStore("products");
+          let getAll = store.getAll();
+
+          getAll.onsuccess = function () {
+            let products = getAll.result;
+            let container = document.getElementById("productsContainer");
+            container.innerHTML = ""; // clear previous
+
+            products.forEach((product) => {
+              let card = document.createElement("div");
+              card.className = "product-card";
+              card.innerHTML = `
+            <h3>${product.name}</h3>
+            <img src="${product.image}" alt="${product.name}">
+            <p>${product.description}</p>
+            <strong>$${product.price.toFixed(2)}</strong>
+          `;
+              container.appendChild(card);
+            });
+          };
+        }
+      };
+    </script>
+  </body>
+</html>
